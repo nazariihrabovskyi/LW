@@ -1,0 +1,59 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstdlib>
+#include <stdio.h>
+#include <conio.h>
+using namespace std;
+
+void write(FILE* f )
+{
+char d[50];
+int p,t;
+	for(int i=0; i<10; i++)
+   {  
+       printf( "%s","Day| kilykisty par|\n");
+       scanf("%s %d",&d,&p);
+       t=p*80+(p-1)*20;
+       fprintf(f,"%s %d %d min\n",d,p,t);
+      // printf("day: %s\n n= %d \n hour=%d",d,p,t);
+ 
+  }
+}
+void read(FILE* f )
+{
+	char d[50];
+    int t;
+    int p,i=0;
+    
+     printf("Day\t kilykisty par\t zahal. trivalisty zan.\n");
+	for(i=0; i<10; i++)
+   {   
+       fscanf(f,"%s %d %d",&d,&p,&t);
+       printf("%s \t%d\t %d\n",d,p,t);
+   }
+   fclose(f);
+}
+
+
+int main(int argc, char** argv) 
+{
+	
+    FILE *f; 	
+	char c;     		
+	while (1){
+	cout<<"w - write;\n"
+         "r - read;\n"
+         "e - exit.\n"<<endl;    
+	cin>>c;
+
+    switch(c){
+    	case 'w': f=fopen("text.txt","a+"); write(f); fclose(f);  break;
+     	case 'r': f=fopen("text.txt","r"); read(f); break;
+      	case 'e': exit(1);fclose(f); break;
+       	default: exit(1); break;
+	}
+};
+
+	system("PAUSE");
+    return EXIT_SUCCESS;
+}
