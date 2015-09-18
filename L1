@@ -1,0 +1,14 @@
+#include <iostream>
+#include <math.h>
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+using namespace std;
+int main(int argc, char *argv[]) {
+	double x,y,z;
+	cout<<"Vvedit x=";
+	cin>>x;
+	cout<<"Vvedit y=";
+	cin>>y;
+	z=y*sin(x);
+	cout<<"z"<<z<<endl;
+	return 0;
+}
