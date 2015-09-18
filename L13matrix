@@ -1,0 +1,17 @@
+/***************************************************************************************************************/
+/*** Function matrixmult_transp() mulplicates matrix A and B. Result of multiplication is transpose C matrix.***/
+/************* Parameters inside is : matrix A(first term), matrix B(second term), matrix C(result)*************/
+/*,noumber of lines of matrix A, noumber of lines and columns of matrix A and B, noumber of columns of matrix B*/
+/***************************************************************************************************************/
+#ifndef matrix
+#define matrix
+void  matrixmult_transp(float **A,float **B,float **C, int m, int n, int k) 
+{   
+   for(int i=0;i<m;i++)
+   			for(int j=0;j<n;j++)C[i][j]=0;
+   			
+	for(int i=0;i<m;i++)
+   		for(int j=0;j<n;j++)
+   			for(int x=0;x<n;x++)C[j][i]+=A[i][x]*B[x][j];
+}
+#endif
