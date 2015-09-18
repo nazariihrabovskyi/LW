@@ -1,0 +1,119 @@
+#include <iostream>
+#include <string.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <stdio.h>
+using namespace std;
+
+struct student{
+	char name[30];
+	char surname[30];
+	char adress[100];
+};
+	FILE *list_of_students;
+	const char file_name[]="list_of_students.bin";
+	
+int Vvid_stud(){
+	struct student i;
+	cout<<"Name: ";
+	gets(i.name);
+	cout<<"Surname: ";
+	gets(i.surname);
+	cout<<"Adress: ";
+	gets(i.adress);
+	fseek(list_of_students,0,2);
+	fwrite(&i,sizeof(i),1,list_of_students);
+	return 0;
+	}
+	
+int print_stud(struct student i){
+	cout<<"Name: "<<i.name<<endl;
+	cout<<"Surname: "<<i.surname<<endl;
+	cout<<"Adress: "<<i.adress<<endl;
+	return 0;
+}
+
+int search_name(){
+	char stude_name[30];
+	struct student i;
+	int s,k;
+	s=0;
+	cout<<"The name of a student for searching: ";
+	gets(stude_name);
+	fseek(list_of_students,0,0);
+	while (!feof(list_of_students))
+	{
+		k=fread(&i,sizeof(i),1,list_of_students);
+		if (k<1) break;
+		if (strcmp(i.name,stude_name)== 0)
+		{
+			print_stud(i);
+			s++;
+		}
+	}
+	if (s==0) cout<<"This name is not found"<<endl;
+	else cout<<endl<<"Found "<<s<< " student"<<endl;
+	return s;
+}
+
+int show_list()
+{
+ struct student i;
+ int s,k;
+ 	s=0;
+	fseek(list_of_students,0,0);
+	while (!feof(list_of_students))
+	{
+		k=fread(&i,sizeof(i),1,list_of_students);
+		if (k<1) break;
+		print_stud(i);
+		s++;
+	}
+	cout<<endl<<"Found  "<<s<<" student"<<endl<<endl;
+        return s;
+}
+
+int clear_file()
+{
+	fclose(list_of_students);
+	if ((list_of_students=fopen(file_name,"wb+"))==NULL)
+ 	{
+ 		cout<<"You can not create the list"<<endl;
+ 		return -1;
+	}
+	return 0;
+}
+
+int main() {
+	char d;
+ 	if ((list_of_students=fopen(file_name,"rb+"))==NULL)
+ 	{
+ 	if ((list_of_students=fopen(file_name,"wb+"))==NULL)
+ 	{
+ 		cout<<"You can not create the list"<<endl;
+ 		return -1;
+	}
+		cout<<"The list is created"<<endl;
+ 	}
+ 	do
+ 	{
+ 		cout<<"Select mode"<<endl;
+ 		cout<<"1 - input student "<<endl;
+		cout<<"2 - search name"<<endl;
+		cout<<"8 - show all"<<endl;
+		cout<<"9 - clear all"<<endl;
+ 		cout<<"0 - exit"<<endl;
+ 		d=getch();
+ 		switch(d)
+ 		{
+			case '0': cout<<"Work is completed"<<endl;
+			 fclose(list_of_students); return 0;
+ 		 	case '1': Vvid_stud(); break;
+ 	 		case '2': search_name(); break;
+      		case '8':	show_list(); break;
+      		case '9': clear_file(); break;
+      	
+ 	 	}
+ 	} while (1);	
+}
+	
